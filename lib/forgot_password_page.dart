@@ -109,3 +109,83 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
   }
 }
+
+class AppTheme {
+  static TextTheme textTheme = const TextTheme(
+    button: TextStyle(
+      fontSize: 24,
+    ),
+  );
+
+  static ThemeData themeData = ThemeData(
+    hintColor: Colors.white,
+    indicatorColor: Colors.white,
+    radioTheme: const RadioThemeData(
+      splashRadius: 4.0,
+    ),
+  );
+}
+
+enum ButtonState {
+  Idle,
+  Loading,
+  Disable;
+}
+
+class ContainerPage extends StatefulWidget {
+  final ButtonState state;
+  final Widget body;
+  final Widget? leadingIcon;
+  const ContainerPage({
+    super.key,
+    required this.body,
+    this.state = ButtonState.Idle,
+    this.leadingIcon,
+  });
+
+  @override
+  State<ContainerPage> createState() => _ContainerPageState();
+}
+
+class _ContainerPageState extends State<ContainerPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        height: 50,
+        width: 100,
+        decoration: const BoxDecoration(
+          gradient: RadialGradient(
+            colors: [
+              Colors.white,
+              Colors.blue,
+            ],
+          ),
+        ),
+        child: Column(
+          children: [
+            widget.state == ButtonState.Loading
+                ? const CircularProgressIndicator()
+                : const Text("data"),
+            if (widget.leadingIcon != null)
+              Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: widget.leadingIcon,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Check extends StatelessWidget {
+  const Check({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ContainerPage(
+      body: Container(),
+    );
+  }
+}
