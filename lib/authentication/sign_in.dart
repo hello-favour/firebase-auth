@@ -1,4 +1,6 @@
+import 'package:api/authentication/authentication_state.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   final VoidCallback? showSignUp;
@@ -14,6 +16,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<AuthenticationState>();
     return Scaffold(
       backgroundColor: const Color(0xFF353535),
       body: Padding(
@@ -34,10 +37,11 @@ class _SignInState extends State<SignIn> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 25),
-            const TextField(
+            TextField(
+              controller: state.emailController,
               cursorColor: Colors.white,
               textInputAction: TextInputAction.done,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
               ),
